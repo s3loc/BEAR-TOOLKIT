@@ -61,28 +61,8 @@ sudo apt install chromium-browser chromium-chromedriver
 Projeyi Klonlayın veya İndirin:
 Projenin ana dizini /home/kali/Desktop/NetSHadow.v2/ altında tüm modüllerin bulunduğundan emin olun.
 
-/home/kali/Desktop/NetSHadow.v2/
-├── redhack_toolkit_main.py  (Ana menü scripti)
-├── DDdos/                     (DDoS Framework modülü)
-│   └── Dddos.v2.py
-│   └── requirements.txt
-├── RedHackscanner/            (Web Zafiyet Tarayıcısı modülü)
-│   └── redhack_scanner.py
-│   └── requirements.txt
-├── Network & Host Reconnaissance Module/ (Ağ ve Host Keşfi modülü)
-│   └── Network & Host Reconnaissance Module .py
-│   └── requirements.txt
-├── Credential & Access Management Module/ (Kimlik Bilgisi Yönetimi modülü)
-│   └── Credential & Access Management Module.py
-│   └── requirements.txt
-├── NetHack/                   (Sömürü, Atlatma, Raporlama - Geliştirilecek modüller)
-│   └── exploitation_module.py (Placeholder)
-│   └── evasion_module.py      (Placeholder)
-│   └── reporting_module.py    (Placeholder)
-│   └── requirements_exploit.txt
-│   └── requirements_evasion.txt
-│   └── requirements_reporting.txt
-└── ... diğer dosyalar ...
+<img width="683" height="450" alt="Ekran görüntüsü 2025-07-18 161621" src="https://github.com/user-attachments/assets/21c0dc37-4869-4e03-a674-b479192a7c79" />
+
 
 Ana Script Bağımlılıklarını Yükleyin:
 Ana menü (redhack_toolkit_main.py) için pyfiglet kütüphanesini yükleyin.
