@@ -1,17 +1,11 @@
-# BEAR TOOLKIT:E CYBER OPERATIONS SUITE
+# BEAR TOOLKIT
 
 
 
 ![360_F_512009117_3LDLJIpHLKQyo05cHo9SkibkLxBZ080K](https://github.com/user-attachments/assets/f5d9a4be-428d-4f62-9741-ae5794b11c41)
 
 
-
-
-
-, kapsamlı siber güvenlik operasyonları için tasarlanmış, çok modüllü ve ileri düzey bir çerçevedir. Keşiften sömürüye, DDoS saldırılarından adli tıp karşıtı gizlenme tekniklerine kadar geniş bir yelpazede yetenekler sunar. Bu araç, modern siber tehditlere karşı hem proaktif hem de reaktif operasyonel kabiliyetleri en üst düzeye çıkarmayı hedefler.
-
-
-⚠️ Yasal ve Etik Uyarı ⚠️
+# ⚠️ Yasal ve Etik Uyarı ⚠️
 
 Bu yazılım, sadece yasal ve etik güvenlik testleri, araştırma ve eğitim amaçlı olarak geliştirilmiştir. Bu aracın herhangi bir yetkisiz ağa veya sisteme karşı kullanılması, ciddi hukuki ve cezai sonuçlar doğurabilir. Kullanıcı, yazılımın tüm kullanımlarından ve bu kullanımların yasal sonuçlarından tamamen kendisi sorumludur. Yazılımın geliştiricisi, herhangi bir kötüye kullanımdan sorumlu tutulamaz.
 
