@@ -36,7 +36,7 @@
 
 
 
-REDHACK TOOLKIT, kapsamlı siber güvenlik operasyonları için tasarlanmış, çok modüllü ve ileri düzey bir çerçevedir. Keşiften sömürüye, DDoS saldırılarından adli tıp karşıtı gizlenme tekniklerine kadar geniş bir yelpazede yetenekler sunar. Bu araç, modern siber tehditlere karşı hem proaktif hem de reaktif operasyonel kabiliyetleri en üst düzeye çıkarmayı hedefler.
+, kapsamlı siber güvenlik operasyonları için tasarlanmış, çok modüllü ve ileri düzey bir çerçevedir. Keşiften sömürüye, DDoS saldırılarından adli tıp karşıtı gizlenme tekniklerine kadar geniş bir yelpazede yetenekler sunar. Bu araç, modern siber tehditlere karşı hem proaktif hem de reaktif operasyonel kabiliyetleri en üst düzeye çıkarmayı hedefler.
 
 
 ⚠️ Yasal ve Etik Uyarı ⚠️
