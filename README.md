@@ -1,206 +1,254 @@
-# BEAR TOOLKIT
+# BEAR TOOLKIT — Düzenlenmiş Dokümantasyon
 
+![BEAR TOOLKIT](https://github.com/user-attachments/assets/f5d9a4be-428d-4f62-9741-ae5794b11c41)
 
+---
 
-![360_F_512009117_3LDLJIpHLKQyo05cHo9SkibkLxBZ080K](https://github.com/user-attachments/assets/f5d9a4be-428d-4f62-9741-ae5794b11c41)
+# ⚠️ Yasal ve Etik Uyarı
 
+Bu yazılım **sadece** yasal ve etik güvenlik testleri, araştırma ve eğitim amaçları için tasarlanmıştır.
+Herhangi bir yetkisiz ağa, sisteme veya hizmete karşı kullanımı **cezai ve hukuki sorumluluk** doğurur. Kullanıcı, yazılımı nasıl kullandığından tamamen sorumludur. Geliştirici ve dağıtıcısı, kötüye kullanımdan sorumlu tutulamaz.
 
-# ⚠️ Yasal ve Etik Uyarı ⚠️
+---
 
-Bu yazılım, sadece yasal ve etik güvenlik testleri, araştırma ve eğitim amaçlı olarak geliştirilmiştir. Bu aracın herhangi bir yetkisiz ağa veya sisteme karşı kullanılması, ciddi hukuki ve cezai sonuçlar doğurabilir. Kullanıcı, yazılımın tüm kullanımlarından ve bu kullanımların yasal sonuçlarından tamamen kendisi sorumludur. Yazılımın geliştiricisi, herhangi bir kötüye kullanımdan sorumlu tutulamaz.
+# Hızlı Başlangıç
 
-📦 Kurulum
+**Gereksinimler**
 
-REDHACK TOOLKIT, Python 3.x üzerinde çalışır ve her modül için izole sanal ortamlar kullanarak bağımlılık yönetimini otomatikleştirir.
+* Python 3.8 veya üstü (3.10+ önerilir)
+* Root/sudo yetkisi gerektiren bazı modüller ve sistem araçları
+* Modüllere özel API anahtarları (Shodan, Censys vb.) bazı fonksiyonlar için gereklidir
 
-    Sisteminizi Güncelleyin:
-    Bash
+**Önerilen çalışma ortamı**
 
+* Debian/Ubuntu/Kali tabanlı dağıtımlar
+* Her modül için izole Python sanal ortamı (venv) kullanımı tavsiye edilir
+
+---
+
+# Kurulum Adımları
+
+1. Sistem paketlerini güncelleyin:
+
+```bash
 sudo apt update
 sudo apt full-upgrade -y
 sudo apt autoremove -y
+```
 
-Gerekli Sistem Paketlerini Yükleyin:
-Bazı Python kütüphaneleri (örn. Scapy, pywifi, psutil) düşük seviyeli ağ işlemleri için sistem kütüphanelerine ihtiyaç duyar.
-Bash
+2. Gerekli sistem paketlerini yükleyin (örnek):
 
-sudo apt install python3-pip python3-dev libbluetooth-dev libssl-dev libffi-dev build-essential nmap net-tools tshark snmpd snmp
-# Chrome WebDriver (Selenium için)
-sudo apt install chromium-browser chromium-chromedriver
-# Veya Google Chrome (eğer tercih ederseniz)
-# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# sudo dpkg -i google-chrome-stable_current_amd64.deb
-# sudo apt install -f
+```bash
+sudo apt install -y python3-pip python3-venv python3-dev libbluetooth-dev libssl-dev libffi-dev build-essential nmap net-tools tshark snmpd snmp
+# Selenium / headless tarayıcı için
+sudo apt install -y chromium-browser chromium-chromedriver
+```
 
-Projeyi Klonlayın veya İndirin:
-Projenin ana dizini /home/kali/Desktop/NetSHadow.v2/ altında tüm modüllerin bulunduğundan emin olun.
+3. Projeyi klonlayın veya indirin ve ana dizine gidin (örnek):
 
-<img width="683" height="450" alt="Ekran görüntüsü 2025-07-18 161621" src="https://github.com/user-attachments/assets/21c0dc37-4869-4e03-a674-b479192a7c79" />
+```bash
+cd ~/Desktop
+git clone <REPO_URL> BEAR-TOOLKIT
+cd BEAR-TOOLKIT
+```
 
+4. Ana script bağımlılığını yükleyin (örnek):
 
-Ana Script Bağımlılıklarını Yükleyin:
-Ana menü (redhack_toolkit_main.py) için pyfiglet kütüphanesini yükleyin.
-Bash
+```bash
+sudo pip3 install pyfiglet
+```
 
-    sudo pip3 install pyfiglet
+> Not: `sudo pip3 install` kullanımı sistem düzeyinde paket yüklediği için dikkatli olun. Tercihen proje bağımlılıklarını sanal ortam içinde yükleyin.
 
-    Modül Bağımlılıklarını Hazırlayın (ÖNEMLİ):
-    Her bir modül dizininin içinde, o modüle ait tüm Python bağımlılıklarını listeleyen bir requirements.txt dosyası bulunduğundan emin olun. Örnek requirements.txt içeriği:
+---
 
-        DDdos/requirements.txt:
+# Sanal Ortam ve Modül Bağımlılıkları
 
-        nmap
-        psutil
-        requests
-        PySocks
-        h2
-        aioquic
-        scapy
-        dnspython
-        # Diğer gerekli paketler
+Projede her modül kendi `requirements.txt` dosyasını bulundurur. Ana menüden bir modül ilk kez çalıştırıldığında, o modül için otomatik olarak sanal ortam oluşturup bağımlılıkları yükleyecek bir mekanizma varsa bunu kullanın; yoksa elle kurun.
 
-        RedHackscanner/requirements.txt:
+Örnek: bir modülün requirements dosyası
 
-        requests
-        beautifulsoup4
-        nmap3
-        selenium
-        tqdm
-        scikit-learn # IsolationForest için
-        numpy
-        cryptography
-        # Diğer gerekli paketler
+```
+# DDdos/requirements.txt
+nmap
+psutil
+requests
+PySocks
+h2
+aioquic
+scapy
+dnspython
+```
 
-        Network & Host Reconnaissance Module/requirements.txt:
+```
+# RedHackscanner/requirements.txt
+requests
+beautifulsoup4
+nmap3
+selenium
+tqdm
+scikit-learn
+numpy
+cryptography
+```
 
-        whois
-        dnspython
-        requests
-        python-nmap # nmap'i import ediyor olabilir
-        shodan # Shodan API key'i gerektirir
-        censys # Censys API key/secret gerektirir
-        beautifulsoup4
-        # Diğer gerekli paketler
+```
+# NetworkRecon/requirements.txt
+whois
+dnspython
+requests
+python-nmap
+shodan
+censys
+beautifulsoup4
+```
 
-        Credential & Access Management Module/requirements.txt:
+Her modül klasöründe `requirements.txt` olduğundan emin olun. Gerekirse bu dosyaları güncelleyin.
 
-        requests
-        paramiko
-        pycryptodome # Crypto.Cipher için
-        impacket # secretsdump için
-        beautifulsoup4
-        # Diğer gerekli paketler
+**Sanal ortam (örnek kullanım)**
 
-        Diğer requirements_*.txt dosyaları (5, 6, 7. modüller için) de benzer şekilde hazırlanmalıdır.
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r module/requirements.txt
+```
 
-    Sanal ortamlar ve bağımlılıklar, ana menüden bir modülü ilk kez seçtiğinizde otomatik olarak oluşturulacak ve yüklenecektir.
+---
 
-🚀 Kullanım
+# Çalıştırma
 
-REDHACK TOOLKIT'i çalıştırmak için ana dizine gidin ve script'i sudo yetkisiyle başlatın:
-Bash
+Ana dizinde ana menüyü başlatın:
 
-cd /home/kali/Desktop/NetSHadow.v2/
+```bash
+cd /path/to/BEAR-TOOLKIT
 sudo python3 redhack_toolkit_main.py
+```
 
-Ana menü açıldığında, istediğiniz modülün numarasını girerek seçebilirsiniz. Her modül başlatıldığında, kendi gerekli argümanlarını isteyecektir.
+Ana menü açıldığında, istenen modülün numarasını girin. Her modül kendi çalıştırma argümanlarını ve konfigürasyon talimatlarını gösterecektir.
 
-⚙️ Modüller ve Yetenekler
+> Not: Sudo gerektiren işlemler (low-level ağ işlemleri, belirli packet crafting) risk ve yan etki oluşturabilir. Yalnızca izinli ve izole ortamlarda çalıştırın.
 
-REDHACK TOOLKIT aşağıdaki temel modülleri içerir:
+---
 
-1. Web Zafiyet Tarayıcısı (Web Scanner)
+# Modüller ve Özellikler (Özet)
 
-    Açıklama: Web uygulamalarındaki yaygın ve kritik güvenlik açıklarını (XSS, SQLi, LFI, RCE, SSTI, IDOR, SSRF, XXE, Açık Yönlendirme, CSRF, Hassas Dosya Açıkları, Güvenlik Başlıkları, Dizin Listeleme, Yetkilendirme Atlama, Brute-Force, Oturum Sabitleme) tespit eder.
+Aşağıdaki liste projede yer alan ana modüllerin kısa açıklamasıdır. İsimlendirme ve içerik zaman içinde güncellenebilir.
 
-    İleri Düzey Yetenekler:
+## 1) Web Zafiyet Tarayıcısı (Web Scanner)
 
-        Otomatik Crawler ve Form Analizi.
+* Genel amaç: XSS, SQLi, LFI, RCE, SSTI, IDOR, SSRF, CSRF, güvenlik başlıkları, dizin listeleme, oturum zaafiyetleri vb. tespit.
+* Özellikler:
 
-        Headless tarayıcı (Selenium) ile DOM-based XSS ve Stored XSS tespiti.
+  * Otomatik crawler ve form analizi
+  * Selenium ile headless DOM tabanlı testler
+  * WAF/IDS atlatma teknikleri (farklı kodlama ve enjeksiyon teknikleri)
+  * IsolationForest tabanlı anomali tespiti (WAF davranış analizi)
+  * OOB (Out-of-Band) test desteği (blind SQLi, SSRF vb.)
+  * HTML/TXT raporlama, CVSS skorlama, PoC üretme
 
-        Gelişmiş WAF/IDS Atlatma: HTTP Request Smuggling, HTTP Parameter Pollution, çeşitli URL kodlama (double, UTF-8, hex), Null Byte enjeksiyonu, Case Randomization, Whitespace Injection.
+## 2) DDoS Çerçevesi (DDoS Framework)
 
-        Adaptif Gecikme ve Anomali Tespiti: IsolationForest ile WAF/IDS aktivitesini tespit eder ve buna göre tarama hızını ayarlar.
+* Genel amaç: Deneysel/araştırma amaçlı trafik oluşturma ve mitigasyon testi
+* Özellikler:
 
-        OOB (Out-of-Band) Teknikleri: Blind SQLi, SSRF, XXE ve RCE için harici etkileşimleri kullanır.
+  * Çoklu protokol desteği (SYN, UDP, ICMP, HTTP vb.)
+  * Sistem optimizasyonu (kernel parametreleri)
+  * Trafik adaptasyonu ve polimorfik paket üretimi
+  * Proxy/tünelleme ve spoofing destekleri (araştırma/izole ortamlarda kullanılmalı)
 
-        Detaylı Raporlama: CVSS skoru, açıklama, önerilen düzeltmeler ve otomatik Proof-of-Concept (PoC) içeren HTML/TXT raporları.
+## 3) Ağ ve Host Keşfi (Network Recon)
 
-        Tarama durumu kaydetme/yükleme.
+* Genel amaç: Pasif ve aktif keşif ile hedefin yüzeyini haritalama
+* Özellikler:
 
-        Proxy listesi üzerinden otomatik rotasyon.
+  * WHOIS, DNS, sertifika şeffaflığı, arama motoru scraping
+  * Shodan / Censys entegrasyonu (API anahtarı gerektirir)
+  * Nmap tabanlı aktif taramalar (OS fingerprint, servis versiyon)
+  * SNMP keşfi ve temel brute-force
+  * Traceroute ve topoloji haritalama
 
-2. DDoS Çerçevesi (DDoS Framework)
+## 4) Kimlik Bilgisi Yönetimi (Credential Management)
 
-    Açıklama: Çeşitli protokol katmanlarında (SYN, HTTP, UDP, ICMP, DNS, NTP, SSDP, CharGen) güçlü, adaptif ve polimorfik DDoS saldırıları gerçekleştirir.
+* Genel amaç: Hash kırma, brute-force, credential stuffing, post-exploitation araçları için entegrasyon
+* Özellikler:
 
-    İleri Düzey Yetenekler:
+  * Hashcat / John entegrasyonları için çıktı hazırlama
+  * Çok protokollü brute-force (SSH, FTP, SMB, Web formları)
+  * Credential stuffing otomasyonları
+  * İmpacket / mimikatz benzeri işlemler için entegrasyon (yalnızca yetkili/test ortamlarında)
+  * Proxy/TOR destekleri
 
-        Sistem Optimizasyonu: Çekirdek parametrelerini (FD limit, socket buffer, TCP reuse, syncookies) optimize eder.
+## 5–7) Geliştirilecek Modüller
 
-        Anti-Forensic: core_pattern ve dmesg_restrict ayarlarıyla sistemde iz bırakmayı azaltır.
+* Exploitation / Post-Exploitation
+* Evasion & Anti-Forensics
+* Raporlama & Dashboard (web tabanlı görselleştirme ve merkezi veri toplama)
 
-        Geri Bildirim Tabanlı Adaptasyon: Hedef yanıt oranına, CPU/RAM/Bant Genişliği/I/O kullanımına göre saldırı vektörlerini ve yoğunluğunu dinamik olarak ayarlar.
+---
 
-        Polimorfik Paketler: Ağ katmanı ve HTTP katmanı paketlerini sürekli değiştirerek tespiti zorlaştırır.
+# Raporlama & Kayıt
 
-        Çok Aşamalı Saldırılar: Keşif, Hacim, Uygulama Katmanı ve Vektör Rotasyonu aşamalarıyla saldırıyı otomatik olarak koordine eder.
+* Tarama ve analiz sonuçları için modüller HTML ve/veya TXT formatında rapor üretebilir. Rapor formatının standartlaştırılması ve daha iyi okunabilirlik için `Reporting & Dashboard` modülünün geliştirilmesi tavsiye edilir.
+* Öneri: Raporları zaman damgası ile `reports/` klasöründe saklayın ve hassas verileri (parolalar, hash’ler) şifreli bir vault içinde tutun.
 
-        WAF/CDN Atlatma: Hedefin gerçek IP'sini bulmaya çalışır ve WAF'ları aşmak için çeşitli teknikler kullanır.
+---
 
-        Proxy ve Tünelleme Desteği: IP spoofing, proxy listesi üzerinden rotasyon ve HTTP/2 tünellemesi ile anonimliği artırır.
+# Güvenlik ve Etik Kuralları (Önemli)
 
-3. Ağ ve Host Keşfi (Network Recon)
+1. **Yetki alın**: Herhangi bir test, tarama veya saldırı simülasyonu için hedef sistem sahibinden yazılı izin alın.
+2. **İzinsiz kullanım yasaktır**: İzinsiz testler suç teşkil eder.
+3. **Log ve iz bırakma**: Araçlar iz bırakabilir; test ortamlarını izole edin.
+4. **Kişisel veriler**: Kişisel verilerle karşılaşıldığında yürürlükteki veri koruma yasalarına uyun.
+5. **Sorumluluk reddi**: Geliştirici ve dağıtıcısı kötü amaçlı kullanımdan sorumlu tutulamaz.
 
-    Açıklama: Hedef ağ ve sistemler hakkında pasif ve aktif yollarla detaylı bilgi toplar.
+---
 
-    İleri Düzey Yetenekler:
+# Katkıda Bulunma
 
-        Pasif OSINT: WHOIS, DNS (A, MX, NS, TXT vb.), Sertifika Şeffaflığı, Arama Motoru Scraping, GitHub/LinkedIn üzerinden subdomain ve e-posta toplama.
+Katkılar memnuniyetle karşılanır. Aşağıdaki adımlar takip edilebilir:
 
-        Shodan/Censys Entegrasyonu: Public internet yüzeyi hakkında detaylı bilgi toplar (API anahtarları gereklidir).
+1. Fork yapın ve kendi dalınızda geliştirin.
+2. Yeni özellikler için açık bir issue açın.
+3. `README` ve `requirements.txt` dosyalarını güncel tutun.
+4. Pull request gönderirken yapılan değişiklikleri açıklayan detaylı bir açıklama ekleyin.
+5. Güvenlik açıkları bildirmek için özel kanallar kullanın; halka açık issue yerine sorumlu açıklama tercih edin.
 
-        Aktif Nmap Taraması: Elite düzeyde Nmap taramaları (OS fingerprinting, servis versiyon tespiti, zafiyet scriptleri, güvenlik duvarı/IDS tespiti).
+---
 
-        Ağ Topolojisi Haritalama: Traceroute ile ağ atlama noktalarını belirler.
+# Lisans
 
-        SNMP Keşfi: SNMP community string brute-force ve temel cihaz keşfi.
+Proje açık kaynaklı bir lisans altında dağıtılmaktadır. Lütfen proje içindeki `LICENSE` dosyasını kontrol edin ve lisans hüküm ve koşullarına uyun. (Varsa: ör. MIT, GPL-3.0 vb.)
 
-        Dahili IP Keşfi: Yaygın özel IP aralıklarını ve sistem arayüzlerinden toplanan IP'leri tarar.
+---
 
-        Diğer modüllerle (DDoS, Scanner) veri entegrasyonu.
+# Örnek `requirements.txt` Yapısı (Klasör Bazlı)
 
-4. Kimlik Bilgisi Yönetimi (Credential Management)
+```
+/DDdos/requirements.txt
+/RedHackscanner/requirements.txt
+/NetworkRecon/requirements.txt
+/CredentialManager/requirements.txt
+```
 
-    Açıklama: Kimlik bilgisi saldırılarını yönetir ve hassas bilgileri işler.
+Her dosya kendi modülünün gerektirdiği paketleri listeler. `scikit-learn` kullanımı gerekiyorsa `scikit-learn` yazın; `sklearn` PyPI paketi eskidir ve hataya sebep olabilir.
 
-    İleri Düzey Yetenekler:
+---
 
-        GPU Destekli Hash Kırma: hashcat ve john gibi endüstri standardı araçlarla entegrasyon (MD5, SHA1, NTLM, bcrypt, scrypt hash türleri).
+# Hızlı Hata Giderme (FAQ)
 
-        Çok Protokollü Brute-Force: SSH, FTP, SMB, HTTP formları için çoklu thread destekli saldırılar.
+* **pip install sırasında “sklearn” hatası alıyorum**
+  `sklearn` paketinin artık deprecated olduğu uyarısını görürsünüz. `scikit-learn` kullanın. `requirements.txt` içinde `sklearn` varsa `scikit-learn` ile değiştirin.
 
-        Credential Stuffing: Sızdırılan kimlik bilgileri ile WEB, E-POSTA (IMAP, SMTP) ve VPN servislerine otomatik giriş denemeleri.
+* **Modülün `best_partition` hatası veriyor**
+  Bu genellikle `python-louvain` veya `community` paketlerinin sürüm uyumsuzluğundan kaynaklanır. Doğru paket (`python-louvain`) ve uyumlu sürümü yükleyin.
 
-        Credential Injection: Doğrudan API endpoint'lerine veya web formlarına kimlik bilgisi payload'ları enjekte etme.
+* **Raporda eksik veriler/boş sonuçlar**
+  Girdi parametrelerini, izinleri ve gerekli API anahtarlarının doğru yüklü olduğunu kontrol edin. Ayrıca tarama izinleri ve ağ erişimi ayarlarını doğrulayın.
 
-        Post-Exploitation Hash Çıkarma: Mimikatz benzeri bellek dökümü analizi, RDP dosyaları ve SAM dosyalarından hash çıkarma (impacket entegrasyonu).
+---
 
-        Anonimlik Desteği: Proxy zincirleme ve TOR entegrasyonu ile gizliliği artırır.
+# İletişim
 
-5, 6, 7. Modüller (Geliştirilecek)
+Projeyi geliştiren ekip veya repo sahipleriyle ilgili iletişim bilgileri `CONTRIBUTING.md` veya repo açıklamasında bulunmalıdır. Güvenlik açıkları için doğrudan ve özel iletişim kullanılmasını tavsiye edin.
 
-    Sömürü ve Sömürü Sonrası (Exploitation): Tespit edilen zafiyetleri otomatik sömürme, kalıcılık ve ayrıcalık yükseltme.
-
-    Atlatma ve Anti-Forensics (Evasion & Anti-Forensics): Trafik gizleme, sistem belleği/disk temizliği, log temizliği, zaman damgası manipülasyonu.
-
-    Raporlama ve Dashboard (Reporting & Dashboard): Tüm verileri merkezi bir veritabanında toplama, web tabanlı görselleştirme paneli ve otomatik bildirimler.
-
-🤝 Katkıda Bulunma
-
-REDHACK TOOLKIT sürekli gelişim halindedir. Projeyi daha da iyileştirmek için her türlü katkı (kod, hata raporlama, özellik önerileri) memnuniyetle karşılanır.
-
-📄 Lisans
-
-Bu proje, açık kaynak bir projedir. Kullanımı yukarıdaki yasal ve etik uyarılar çerçevesinde yapılmalıdır.
+---
